@@ -71,14 +71,14 @@ const resolvers = {
             const token = jwt.sign({userId:user._id},process.env.JWT_SECRET);
             return {token}
         },
-        createQuote:async(_,{name},{userId})=>{
+        createQuote:async(_,{addproduct},{userId})=>{
             if(!userId) throw new Error("You must be logged in")
             const newQuote = new Quote({
-            name,
+            ...addproduct,
             by:userId
         });
-        await newQuote.save();
-        return "Quote saved successfully"
+
+        return await newQuote.save();
         }
 
     }

@@ -37,7 +37,7 @@ export default {
             },
             err: '',
             info: '',
-            endpoint: 'http://localhost:5000/',
+            endpoint: 'http://localhost:5000/graphql',
             mutation: `
           mutation($user: UserInput!) {
             signupUser(userNew: $user) {

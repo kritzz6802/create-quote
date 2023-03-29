@@ -2,13 +2,33 @@
 <p v-if="error">Something went wrong...</p>
 <p v-if="loading">Loading...</p>
 <div v-else class="container my-container">
-    <blockquote v-for="q in result.quotes" :key="q">
-        <h6>{{ q.name }}</h6>
-        <!-- <span v-for="n in q" :key="n"></span>-->
-        <router-link :to="`/profile/${q.by._id}`">
-            <p class="right-align">~ {{q.by.fname}}</p>
-        </router-link>
-    </blockquote>
+        <div class="p-maindiv">
+            <div class="product" v-for="q in result.quotes" :key="q">
+                <div class="center">
+                    <img v-if="q.url!==null" :src="`${q.url}`" alt="pic" />
+                </div>
+                <h5 style="margin-top: 20px;">
+                    {{ q.name }}
+                </h5>
+                <div>Price: <strong>$ {{ q.price }}</strong></div>
+                <p>
+                    {{ q.discription }}
+                </p>
+                    <router-link :to="`/profile/${q.by._id}`">
+                    <p class="right-align">~ {{q.by.fname}}</p>
+                </router-link>
+            </div>
+          <!--  <blockquote v-for="q in result.quotes" :key="q">
+                <h6>{{ q.name }}</h6>
+                <h6>{{ q.price }}</h6>
+                <h6>{{ q.discription }}</h6>
+                <h6>{{ q.quote }}</h6>
+                <img v-if="q.url!==null" class="profile-img" :src="`${q.url}`" alt="pic" />
+                <router-link :to="`/profile/${q.by._id}`">
+                    <p class="right-align">~ {{q.by.fname}}</p>
+                </router-link>
+            </blockquote> -->
+        </div>
 </div>
 </template>
 
@@ -24,6 +44,9 @@ query
     {
     quotes{
         name
+      price
+      discription
+      url
         by{
         _id
          fname
@@ -69,7 +92,7 @@ export default {
             loading,
             error
         } = useQuery(CHARACTERS_QUERY);
-        // console.log(result)
+        console.log(result)
         return {
             result,
             loading,

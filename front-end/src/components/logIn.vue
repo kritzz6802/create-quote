@@ -27,7 +27,7 @@ export default {
                 email: '',
                 password: '',
             },
-            endpoint: 'http://localhost:5000/',
+            endpoint: 'http://localhost:5000/graphql',
             mutation: `
               mutation createuser($user:UserSigninInput!){
                 signinUser(userSignin:$user) {

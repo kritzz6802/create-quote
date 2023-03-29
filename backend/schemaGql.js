@@ -18,13 +18,19 @@ type User{
 }
 type Quote{
     by:ID!
+    discription:String
+    price:String
     name:String
+    url:String
 }
 type Token{
     token:String!
 }
 type QuoteWithName{
     name:String
+    discription:String
+    price:String
+    url:String
     by:IdName
 }
 type IdName{
@@ -41,10 +47,16 @@ input UserSigninInput{
     email:String!
     password:String!
 }
+input product{
+    name:String
+    discription:String
+    price:String
+    url:String
+}
 type Mutation{
     signupUser(userNew:UserInput!):User
     signinUser(userSignin:UserSigninInput!):Token
-    createQuote(name:String):String
+    createQuote(addproduct:product):QuoteWithName
 }
 `;
 export default typeDefs;

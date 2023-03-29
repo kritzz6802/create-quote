@@ -2,9 +2,12 @@
     <div class="container my-container">
         <h3>Create Quote!!</h3>
         <form action="" @submit.prevent="getData()">
+            <input type="text" name="name" placeholder="name" v-model="form.name" required>
+            <input type="text" name="price" placeholder="price" v-model="form.price" required>
+            <input type="text" name="discription" placeholder="description" v-model="form.discription" required>
+            <input type="text" name="url" placeholder="write your url" v-model="form.url" required>
             <input type="text" name="quote" placeholder="write your quote here..." v-model="form.quote" required>
             <button type="submit" class="btn #673ab7 deep-purple">Create Quote</button>
-            <p>{{ form }}</p>
         </form>
     </div>
 </template>
@@ -17,21 +20,43 @@ export default {
   data() {
     return {
       form: {
+        name: '',
+        price: '',
+        discription: '',
+        url: '',
         quote: ''
       },
-      endpoint: 'http://localhost:5000/',
+      endpoint: 'http://localhost:5000/graphql',
       mutation: `
-        mutation CreateQuote($name: String) {
-          quote:createQuote(name: $name)
+mutation CreateQuote($addproduct: product!) {
+  createQuote(addproduct: $addproduct) {
+    name
+    price
+    discription
+    quote
+    url
+      by{
+        _id
+         fname
         }
+  }
+}
       `,
       headers:  localStorage.getItem('token')
     }
   },
   methods: {
     async getData() {
-      const { quote } = this.form;
-      const variables = { name:quote };
+      const { name,
+      price,
+      discription,quote,url } = this.form;
+      const variables = { addproduct:{
+      name,
+      price,
+      discription,
+      quote,
+      url
+      } };
       const options = { authorization: this.headers};
       try {
         const data = await request(this.endpoint, this.mutation, variables,options);

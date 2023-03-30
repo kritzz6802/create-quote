@@ -3,7 +3,7 @@
 <p v-if="loading">Loading...</p>
 <div v-else class="container my-container">
         <div class="p-maindiv">
-            <div class="product" v-for="q in result.quotes" :key="q">
+            <div class="product" v-for="q in result.products" :key="q">
                 <div class="center">
                     <img v-if="q.url!==null" :src="`${q.url}`" alt="pic" />
                 </div>
@@ -18,16 +18,6 @@
                     <p class="right-align">~ {{q.by.fname}}</p>
                 </router-link>
             </div>
-          <!--  <blockquote v-for="q in result.quotes" :key="q">
-                <h6>{{ q.name }}</h6>
-                <h6>{{ q.price }}</h6>
-                <h6>{{ q.discription }}</h6>
-                <h6>{{ q.quote }}</h6>
-                <img v-if="q.url!==null" class="profile-img" :src="`${q.url}`" alt="pic" />
-                <router-link :to="`/profile/${q.by._id}`">
-                    <p class="right-align">~ {{q.by.fname}}</p>
-                </router-link>
-            </blockquote> -->
         </div>
 </div>
 </template>
@@ -42,7 +32,7 @@ import {
 const CHARACTERS_QUERY = gql `
 query
     {
-    quotes{
+    products{
         name
       price
       discription
@@ -62,7 +52,7 @@ export default {
     //         query: `
     //         query
     //         {
-    //            quotes{
+    //            products{
     //               name
     //               by{
     //                  fname
@@ -79,8 +69,8 @@ export default {
     //             "Content-Type": "application/json"
     //         }
     //     }).then(response => {
-    //         this.items = response.data.data.quotes;
-    //         // console.log(response.data.data.quotes);
+    //         this.items = response.data.data.products;
+    //         // console.log(response.data.data.products);
     //     }).catch(error => {
     //         console.error(error);
     //     });

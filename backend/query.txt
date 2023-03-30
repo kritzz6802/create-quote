@@ -164,3 +164,80 @@ query getProfile{
   }
 
 }
+
+//createProduct
+mutation CreateProduct($addproduct: product!) {
+  createProduct(addproduct: $addproduct) {
+    name
+    price
+    discription
+    url
+      by{
+        _id
+         fname
+        }
+  }
+}
+
+// home page
+query
+    {
+    products{
+        name
+      price
+      discription
+      url
+        by{
+        _id
+         fname
+        }
+     }
+ }
+
+ //login
+     mutation createuser($user:UserSigninInput!){
+                signinUser(userSignin:$user) {
+                    token
+                  }
+                }
+
+// other user getProfile
+        query getUser($userId: ID!) {
+          user(_id: $userId) {
+            _id
+            fname
+            lname
+            email
+            products {
+                name
+                price
+                discription
+                url
+            }
+          }
+        }
+
+//getProfile
+query getProfile{
+  user:myprofile{
+    fname
+    lname
+    email
+     products{
+    name
+          price
+      discription
+      url
+  }
+  }
+}
+
+//sign UserPostID
+
+          mutation($user: UserInput!) {
+            signupUser(userNew: $user) {
+              fname
+              lname
+              email
+            }
+          }

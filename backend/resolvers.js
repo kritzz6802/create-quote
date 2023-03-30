@@ -1,22 +1,22 @@
-import { quotes, users } from './fakeapi.mjs';
-import { randomBytes } from 'crypto';
+// import { products, users } from './fakeapi.mjs';
+// import { randomBytes } from 'crypto';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 const User = mongoose.model("User");
-const Quote = mongoose.model("Quote");
+const Product = mongoose.model("Product");
 
 const resolvers = {
     // Query: {
     //     users: () => users,
     //     // user:(_,args)=>users.find(user=>user._id==args._id), both are working
     //     user: (parent, { _id }, context, info) => users.find(user => user._id == _id),
-    //     quotes: () => quotes,
-    //     iquotes: (_, { by }) => quotes.filter(quote => quote.by == by)
+    //     products: () => products,
+    //     iproducts: (_, { by }) => products.filter(Product => Product.by == by)
     // },
     // User: {
-    //     quotes: (ur) => quotes.filter(quote => quote.by == ur._id),// users._id is also working
+    //     products: (ur) => products.filter(Product => Product.by == ur._id),// users._id is also working
     // },
     // Mutation: {
     //     signupUser: (_, { userNew }) => {
@@ -34,15 +34,15 @@ const resolvers = {
     Query: {
         users: async() => await User.find({}),
         user:async (_, { _id }) => await User.findOne({_id}),
-        quotes:async () => await Quote.find({}).populate("by","_id fname"),
-        iquotes:async (_, { by }) => await Quote.find({by}),
+        products:async () => await Product.find({}).populate("by","_id fname"),
+        iproducts:async (_, { by }) => await Product.find({by}),
         myprofile:async (_,args,{userId})=>{
             if(!userId) throw new Error("You must be logged in")
            return await User.findOne({_id:userId})
         }
     },
     User: {
-        quotes:async (ur) => await Quote.find({by:ur._id}).populate("by","_id fname"),// users._id is also working
+        products:async (ur) => await Product.find({by:ur._id}).populate("by","_id fname"),// users._id is also working
     },
     Mutation: {
         signupUser: async (_, { userNew }) => {
@@ -71,15 +71,25 @@ const resolvers = {
             const token = jwt.sign({userId:user._id},process.env.JWT_SECRET);
             return {token}
         },
-        createQuote:async(_,{addproduct},{userId})=>{
+        createProduct:async(_,{addproduct},{userId})=>{
             if(!userId) throw new Error("You must be logged in")
-            const newQuote = new Quote({
+            const newProduct = new Product({
             ...addproduct,
             by:userId
         });
 
-        return await newQuote.save();
-        }
+        return await newProduct.save();
+        },
+        updateUser: async (_, { input },{userId}) => {
+            if (!userId) throw new Error('User not found')
+            const updateUser = await User.findByIdAndUpdate({
+                ...input,
+                _id:userId
+            });
+
+            // Object.assign(user, updateUser)
+            return await updateUser.save()
+          }
 
     }
 }

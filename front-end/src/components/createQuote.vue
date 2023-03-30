@@ -1,13 +1,12 @@
 <template>
     <div class="container my-container">
-        <h3>Create Quote!!</h3>
+        <h3>Create Product!!</h3>
         <form action="" @submit.prevent="getData()">
             <input type="text" name="name" placeholder="name" v-model="form.name" required>
             <input type="text" name="price" placeholder="price" v-model="form.price" required>
             <input type="text" name="discription" placeholder="description" v-model="form.discription" required>
             <input type="text" name="url" placeholder="write your url" v-model="form.url" required>
-            <input type="text" name="quote" placeholder="write your quote here..." v-model="form.quote" required>
-            <button type="submit" class="btn #673ab7 deep-purple">Create Quote</button>
+            <button type="submit" class="btn #673ab7 deep-purple">Create Product</button>
         </form>
     </div>
 </template>
@@ -16,7 +15,7 @@
 import { request} from 'graphql-request';
 
 export default {
-  name: 'createQuote',
+  name: 'createProduct',
   data() {
     return {
       form: {
@@ -24,16 +23,14 @@ export default {
         price: '',
         discription: '',
         url: '',
-        quote: ''
       },
       endpoint: 'http://localhost:5000/graphql',
       mutation: `
-mutation CreateQuote($addproduct: product!) {
-  createQuote(addproduct: $addproduct) {
+mutation CreateProduct($addproduct: product!) {
+  createProduct(addproduct: $addproduct) {
     name
     price
     discription
-    quote
     url
       by{
         _id
@@ -49,22 +46,21 @@ mutation CreateQuote($addproduct: product!) {
     async getData() {
       const { name,
       price,
-      discription,quote,url } = this.form;
+      discription,url } = this.form;
       const variables = { addproduct:{
       name,
       price,
       discription,
-      quote,
       url
       } };
       const options = { authorization: this.headers};
       try {
         const data = await request(this.endpoint, this.mutation, variables,options);
         console.log(data);
-        alert('create your Quote successfully!! ');
+        alert('create your Product successfully!! ');
       } catch (error) {
         console.error(error);
-        alert('Error creating Quote!');
+        alert('Error creating Product!');
       }
     }
   }

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const quoteSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -22,4 +22,4 @@ const quoteSchema = new mongoose.Schema({
     }
 });
 
-mongoose.model("Quote",quoteSchema);
+mongoose.model("Product",productSchema);

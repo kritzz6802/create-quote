@@ -22,7 +22,7 @@ export const users = [
     },
 ]
 
-export const quotes = [
+export const products = [
     {
         name: "i turn coffee into kichan",
         by: "1"

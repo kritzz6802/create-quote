@@ -5,15 +5,9 @@
         <h5>{{items.fname}} {{items.lname}}</h5>
         <h6>{{items.email}}</h6>
     </div>
-    <h3>Your quotes</h3>
-    <!-- <blockquote v-for="q in items.quotes" :key="q">
-        <h6>{{q.name}}</h6>
-        <h6>{{ q.price }}</h6>
-        <h6>{{ q.discription }}</h6>
-        <img v-if="q.url!==null" class="profile-img" :src="`${q.url}`" alt="pic" />
-    </blockquote> -->
+    <h3>Your products</h3>
     <div class="p-maindiv">
-        <div class="product" v-for="q in items.quotes" :key="q">
+        <div class="product" v-for="q in items.products" :key="q">
             <div class="center">
                 <img v-if="q.url!==null" :src="`${q.url}`" alt="pic" />
             </div>
@@ -52,12 +46,11 @@ export default {
             fname
             lname
             email
-            quotes {
+            products {
                 name
-      price
-      discription
-      url
-
+                price
+                discription
+                url
             }
           }
         }

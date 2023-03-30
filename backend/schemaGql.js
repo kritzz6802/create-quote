@@ -3,9 +3,9 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 type Query{
     users:[User]
-    quotes:[QuoteWithName]
+    products:[ProductWithName]
     user(_id:ID!):User
-    iquotes(by:ID!):[Quote]
+    iproducts(by:ID!):[Product]
     myprofile:User
 }
 type User{
@@ -13,10 +13,10 @@ type User{
     fname:String!
     lname:String!
     email:String!
-    password:String!
-    quotes:[QuoteWithName]
+    password:String
+    products:[ProductWithName]
 }
-type Quote{
+type Product{
     by:ID!
     discription:String
     price:String
@@ -26,7 +26,7 @@ type Quote{
 type Token{
     token:String!
 }
-type QuoteWithName{
+type ProductWithName{
     name:String
     discription:String
     price:String
@@ -37,6 +37,11 @@ type IdName{
     _id:String
     fname:String
 }
+input UpdateUserInput {
+    fname: String
+    lname: String
+    email: String
+  }
 input UserInput{
     fname:String!
     lname:String!
@@ -56,7 +61,8 @@ input product{
 type Mutation{
     signupUser(userNew:UserInput!):User
     signinUser(userSignin:UserSigninInput!):Token
-    createQuote(addproduct:product):QuoteWithName
+    createProduct(addproduct:product):ProductWithName
+    updateUser(input: UpdateUserInput!): User!
 }
 `;
 export default typeDefs;

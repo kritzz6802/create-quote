@@ -1,7 +1,7 @@
 <template>
     <nav>
     <div class="nav-wrapper #673ab7 deep-purple">
-        <router-link to="/" class="brand-logo left">Quote App</router-link>
+        <router-link to="/" class="brand-logo left">Product App</router-link>
         <ul id="nav-mobile" class="right">
         <li><router-link to="/login">login</router-link></li>
         <li><router-link to="/signup">signUp</router-link></li>

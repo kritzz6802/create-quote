@@ -16,6 +16,7 @@ type User{
     password:String
     products:[ProductWithName]
 }
+
 type Product{
     by:ID!
     discription:String
@@ -27,6 +28,7 @@ type Token{
     token:String!
 }
 type ProductWithName{
+    id:ID
     name:String
     discription:String
     price:String
@@ -63,6 +65,7 @@ type Mutation{
     signinUser(userSignin:UserSigninInput!):Token
     createProduct(addproduct:product):ProductWithName
     updateUser(input: UpdateUserInput!): User!
+    deleteProduct(id:ID):ProductWithName
 }
 `;
 export default typeDefs;

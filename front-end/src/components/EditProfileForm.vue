@@ -2,23 +2,23 @@
   <div class="edit-profile">
     <form @submit.prevent="onSubmit">
       <label for="fname">First Name</label>
-      <input type="text" id="fname" :value="user.fname" @input="fname = $event.target.value" />
+      <input type="text" id="fname" :value="fname" @input="fname = $event.target.value" />
 
       <label for="lname">Last Name</label>
-      <input type="text" id="lname" v-model="lname" />
+      <input type="text" id="lname" :value="lname" @input="lname = $event.target.value" />
 
       <label for="email">Email</label>
-      <input type="email" id="email" v-model="email" />
+      <input type="email" id="email" :value="email" @input="email = $event.target.value" />
 
       <button type="submit">Update Profile</button>
     </form>
-<p>{{ user.fname  }} {{ lname }} {{ email }}</p>
+    <p>{{ fname }} {{ lname }} {{ email }} </p>
   </div>
 </template>
 
 <script>
 import gql from 'graphql-tag'
-import { defineComponent, toRefs,reactive } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useMutation } from '@vue/apollo-composable'
 import router from '../router.js'
 
@@ -39,15 +39,13 @@ export default defineComponent({
       required: true
     }
   },
-//   data() {
-//     return {
-//       fname: ''
-//     }
-//   },
   setup(props) {
-    // const { fname, lname, email } = toRefs(props.user)
-    const user = reactive(props.user)
- const { fname, lname, email } = toRefs(user)
+    const user = ref(props.user)
+
+    const fname = ref(user.value.fname)
+    const lname = ref(user.value.lname)
+    const email = ref(user.value.email)
+
     const { mutate, loading } = useMutation(UPDATE_PROFILE_MUTATION)
 
     const onSubmit = () => {
@@ -56,18 +54,15 @@ export default defineComponent({
         lname: lname.value,
         email: email.value
       }).then(() => {
-      console.log(fname);
-      console.log(lname);
-      console.log(email);
         // Navigate back to the user profile page
         router.push('/profile')
       })
     }
 
     return {
-      fname: fname.value,
-      lname: lname.value,
-      email: email.value,
+      fname,
+      lname,
+      email,
       loading,
       onSubmit
     }

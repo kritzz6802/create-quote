@@ -7,8 +7,16 @@ text-align: left;
 }
 
 input:focus {
-    border-bottom: 2px solid #673ab7 !important;
+    border: 2px solid #673ab7 !important;
+    border-radius: 20px;
     box-shadow: none !important;
+    margin: 0px 20px;
+}
+input {
+    border: 1px solid #673ab7 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    padding: 0px 20px !important;
 }
 
 .profile-img{

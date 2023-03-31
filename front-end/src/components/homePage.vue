@@ -2,6 +2,7 @@
 <p v-if="error">Something went wrong...</p>
 <p v-if="loading">Loading...</p>
 <div v-else class="container my-container">
+    <h2 class="center">Your Product</h2>
         <div class="p-maindiv">
             <div class="product" v-for="q in result.products" :key="q">
                 <div class="center">

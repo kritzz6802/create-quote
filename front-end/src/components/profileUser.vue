@@ -15,26 +15,31 @@
             <h5 style="margin-top: 20px;">
                 {{ q.name }}
             </h5>
-            <div>Price: <strong>$ {{ q.price }}</strong></div>
-            <p>
+            <h6>Price: <strong>$ {{ q.price }}</strong></h6>
+            <span>
                 {{ q.discription }}
-            </p>
+            </span>
+            <br>
+            <button type="submit" class="btn #673ab7 deep-purple right" @click="deleteProduct(q.id)">Delete</button>
         </div>
     </div>
 
     <div v-if="showEditForm">
-        <EditProfileForm :user="result.user" @close="closeEditForm" />
+        <EditProfileForm :user="result.user" @update:user="updateUserProfile($event.fname, $event.lname, $event.email)" />
     </div>
 </div>
 </template>
 
 <script>
 import gql from 'graphql-tag'
-import { ref } from 'vue';
+import {
+    ref
+} from 'vue';
 import router from '../router.js'
 import EditProfileForm from "./EditProfileForm.vue";
 import {
-    useQuery
+    useQuery,
+    useMutation
 } from '@vue/apollo-composable'
 const CHARACTERS_QUERY = gql `
 query getProfile{
@@ -43,6 +48,7 @@ query getProfile{
     lname
     email
      products{
+        id
     name
           price
       discription
@@ -50,7 +56,16 @@ query getProfile{
   }
   }
 }
-`
+`;
+
+const DELETE_PRODUCT_MUTATION = gql `
+  mutation deleteProduct($id: ID!) {
+    deleteProduct(id: $id) {
+      id
+    }
+  }
+`;
+
 export default {
     name: 'profileUser',
     components: {
@@ -63,7 +78,20 @@ export default {
             error
         } = useQuery(CHARACTERS_QUERY);
         const showEditForm = ref(false);
-        // console.log(result)
+        // console.log(result.value.user.products)
+        const {
+            mutate: deleteProductMutation
+        } = useMutation(DELETE_PRODUCT_MUTATION)
+
+        function deleteProduct(productId) {
+            deleteProductMutation({
+                id: productId
+            }).then(() => {
+                // Remove the deleted product from the user's product list
+                result.value.user.products = result.value.user.products.filter(product => product.id !== productId)
+            })
+            router.push('/')
+        }
         if (!localStorage.getItem('token')) {
             //   throw new Error("You must be logged in");
             router.push('/login')
@@ -77,6 +105,7 @@ export default {
             showEditForm.value = false;
         }
         return {
+            deleteProduct,
             result,
             loading,
             error,

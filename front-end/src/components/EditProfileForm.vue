@@ -1,18 +1,15 @@
 <template>
+  <h5>Update Profile</h5>
   <div class="edit-profile">
     <form @submit.prevent="onSubmit">
-      <label for="fname">First Name</label>
       <input type="text" id="fname" :value="fname" @input="fname = $event.target.value" />
 
-      <label for="lname">Last Name</label>
       <input type="text" id="lname" :value="lname" @input="lname = $event.target.value" />
 
-      <label for="email">Email</label>
       <input type="email" id="email" :value="email" @input="email = $event.target.value" />
 
-      <button type="submit">Update Profile</button>
+      <button type="submit" class="btn #673ab7 deep-purple">Update Profile</button>
     </form>
-    <p>{{ fname }} {{ lname }} {{ email }} </p>
   </div>
 </template>
 
@@ -38,8 +35,8 @@ export default defineComponent({
       type: Object,
       required: true
     }
-  },
-  setup(props) {
+  }
+  ,setup(props) {
     const user = ref(props.user)
 
     const fname = ref(user.value.fname)
@@ -49,13 +46,14 @@ export default defineComponent({
     const { mutate, loading } = useMutation(UPDATE_PROFILE_MUTATION)
 
     const onSubmit = () => {
+      console.log(fname.value)
       mutate({
         fname: fname.value,
         lname: lname.value,
         email: email.value
       }).then(() => {
         // Navigate back to the user profile page
-        router.push('/profile')
+        router.push('/')
       })
     }
 

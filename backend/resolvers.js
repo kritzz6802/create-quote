@@ -81,15 +81,37 @@ const resolvers = {
             return await newProduct.save();
         },
         updateUser: async (_, { input }, { userId }) => {
-            if (!userId) throw new Error('User not found')
-            const updateUser = await User.findByIdAndUpdate({
-                ...input,
-                _id: userId
-            });
-            console.log(updateUser);
-            // Object.assign(user, updateUser)
-            return await updateUser.save()
-        },
+            if (!userId) throw new Error('User not found');
+            try {
+              const updateUser = await User.findByIdAndUpdate(
+                userId,
+                input,
+                { new: true }
+              );
+              if (!updateUser) throw new Error('User not found');
+            //   console.log(updateUser);
+              return updateUser;
+            } catch (err) {
+              console.log(err);
+              throw new Error('Error updating user');
+            }
+          },
+          updateProduct: async (_, { inputProduct }, { userId }) => {
+            if (!userId) throw new Error('User not found');
+            try {
+              const updateProduct = await Product.findByIdAndUpdate(
+                inputProduct.id,
+                inputProduct,
+                { new: true }
+              );
+              console.log(updateProduct);
+              if (!updateProduct) throw new Error('Product not found');
+              return updateProduct;
+            } catch (err) {
+              console.log(err);
+              throw new Error('Error updating product');
+            }
+          },
         deleteProduct: async (_, { id }, { userId }) => {
             if (!userId) {
                 throw new Error("You must be logged in");

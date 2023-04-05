@@ -40,9 +40,17 @@ type IdName{
     fname:String
 }
 input UpdateUserInput {
+    _id:ID
     fname: String
     lname: String
     email: String
+  }
+input UpdateProInput {
+    id:ID
+    name:String
+    discription:String
+    price:String
+    url:String
   }
 input UserInput{
     fname:String!
@@ -64,7 +72,8 @@ type Mutation{
     signupUser(userNew:UserInput!):User
     signinUser(userSignin:UserSigninInput!):Token
     createProduct(addproduct:product):ProductWithName
-    updateUser(input: UpdateUserInput!): User!
+    updateUser(input: UpdateUserInput): User
+    updateProduct(inputProduct: UpdateProInput): ProductWithName
     deleteProduct(id:ID):ProductWithName
 }
 `;

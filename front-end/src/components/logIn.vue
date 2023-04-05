@@ -1,15 +1,15 @@
 <template>
 <div class="container my-container">
-    <h3>Login!!</h3>
+<h3>Login !!</h3>
+<form action="" @submit.prevent="getData()">
 
-    <form action="" @submit.prevent="getData()">
-        <input type="email" placeholder="email" v-model="form.email" required>
-        <input type="password" placeholder="password" v-model="form.password" required>
-        <router-link to="/signup">
-            <p>Don't have an account ?</p>
-        </router-link>
-        <button type="submit" class="btn #673ab7 deep-purple">Login</button>
-    </form>
+<input type="email" placeholder="email" v-model="form.email" required>
+<input type="password" placeholder="password" v-model="form.password" required>
+<router-link to="/signup">
+    <p>Don't have an account ?</p>
+</router-link>
+<button type="submit" class="btn #673ab7 deep-purple">Login</button>
+</form>
 </div>
 </template>
 

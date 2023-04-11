@@ -62,7 +62,7 @@ export default {
     },
     mounted() {
         // console.log(this.variables);
-        axios.post(process.env.VUE_APP_BASE_URL, {
+        axios.post('https://mevn-product-selling.onrender.com/', {
             query: this.query,
             variables: this.variables
         }, {

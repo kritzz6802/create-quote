@@ -7,12 +7,12 @@ import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
   cache,
-  uri: process.env.VUE_APP_BASE_URL,
+  uri: 'https://mevn-product-selling.onrender.com/',
   headers:{
     authorization:localStorage.getItem('token') || ''
   }
 });
-console.log(process.env.VUE_APP_BASE_URL);
+console.log('https://mevn-product-selling.onrender.com/');
 import { DefaultApolloClient } from '@vue/apollo-composable'
 // import { createApolloClient } from './apollo-client'
 

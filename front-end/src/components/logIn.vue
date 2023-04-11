@@ -27,7 +27,7 @@ export default {
                 email: '',
                 password: '',
             },
-            endpoint: process.env.VUE_APP_BASE_URL,
+            endpoint: 'https://mevn-product-selling.onrender.com/',
             mutation: `
               mutation createuser($user:UserSigninInput!){
                 signinUser(userSignin:$user) {

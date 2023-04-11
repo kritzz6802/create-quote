@@ -12,7 +12,7 @@ const apolloClient = new ApolloClient({
     authorization:localStorage.getItem('token') || ''
   }
 });
-
+console.log(process.env.VUE_APP_BASE_URL);
 import { DefaultApolloClient } from '@vue/apollo-composable'
 // import { createApolloClient } from './apollo-client'
 

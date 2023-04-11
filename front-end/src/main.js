@@ -3,10 +3,11 @@ import App from './App.vue'
 import './assets/style.css'
 import router from './router';
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
+
 const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
   cache,
-  uri: 'http://localhost:5000/',
+  uri: process.env.VUE_APP_BASE_URL,
   headers:{
     authorization:localStorage.getItem('token') || ''
   }

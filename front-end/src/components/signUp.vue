@@ -37,7 +37,7 @@ export default {
             },
             err: '',
             info: '',
-            endpoint: 'http://localhost:5000/graphql',
+            endpoint: process.env.VUE_APP_BASE_URL,
             mutation: `
           mutation($user: UserInput!) {
             signupUser(userNew: $user) {

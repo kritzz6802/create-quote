@@ -24,7 +24,7 @@ export default {
         discription: '',
         url: '',
       },
-      endpoint: 'http://localhost:5000/graphql',
+      endpoint: process.env.VUE_APP_BASE_URL,
       mutation: `
 mutation CreateProduct($addproduct: product!) {
   createProduct(addproduct: $addproduct) {

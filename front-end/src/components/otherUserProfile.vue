@@ -62,7 +62,7 @@ export default {
     },
     mounted() {
         // console.log(this.variables);
-        axios.post('http://localhost:5000/graphql', {
+        axios.post(process.env.VUE_APP_BASE_URL, {
             query: this.query,
             variables: this.variables
         }, {

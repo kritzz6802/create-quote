@@ -27,7 +27,7 @@ export default {
                 email: '',
                 password: '',
             },
-            endpoint: 'http://localhost:5000/graphql',
+            endpoint: process.env.VUE_APP_BASE_URL,
             mutation: `
               mutation createuser($user:UserSigninInput!){
                 signinUser(userSignin:$user) {
